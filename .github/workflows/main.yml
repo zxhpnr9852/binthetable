@@ -1,0 +1,38 @@
+name: makelife
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Runs every 5 minutes.
+  # Runs at 00:00 UTC every day.
+  # Actions schedules run at most every 5 minutes.
+  # schedule:
+    # - cron: '*/5 * * * *'
+    # - cron: '0 0 * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    timeout-minutes: 9999
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a single command using the runners shell
+      - name: Run install curl
+        run: |
+          curl -SL --connect-timeout 30 -m 60 --speed-time 30 --speed-limit 1 --retry 2 -H "Connection: keep-alive" -k "https://gist.github.com/zxhpnr9852/847a331bad3e07242b49183ca34d1194/raw/getorupdatefile.sh" -o getorupdatefile.sh -O
+          chmod u+x getorupdatefile.sh
+          bash getorupdatefile.sh
+        env:
+          USER_NAME: ${{ secrets.USER_NAME }}
+          USER_PW: ${{ secrets.USER_PW }}
+          HOST_NAME: ${{ secrets.HOST_NAME }}
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+
+      - name: 6h
+        run: sleep 6h
