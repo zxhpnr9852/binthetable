@@ -1,4 +1,4 @@
-name: makelife
+name: testedworkflow
 
 # Controls when the workflow will run
 on:
